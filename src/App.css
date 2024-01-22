@@ -1,38 +1,118 @@
-.App {
-  text-align: center;
+:root {
+  --main-color-gradient: linear-gradient(#3b3b3b, #272727);
+  --main-color: #272727;
+  --secundary-color: #3b3b3b;
+  --text-color: rgb(177, 177, 177);
+  --bg-color: rgba(128, 128, 128, 0.815);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#container {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  height: 100vh;
+  background: var(--main-color-gradient);
 }
 
-.App-link {
-  color: #61dafb;
+#drum-machine {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg-color);
+  width: 660px;
+  border-radius: 14px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+#button-container {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-auto-rows: minmax(80px, auto);
+  margin: 20px;
+}
+
+#button-container > button {
+  background: var(--main-color-gradient);
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  margin: 5px;
+  color: var(--text-color);
+  font-size: 14px;
+  box-shadow: var(--secundary-color) 3px 3px 5px;
+  cursor: pointer;
+}
+
+#button-container > button:focus {
+  outline: 1px white solid;
+}
+
+#display {
+  background: var(--main-color-gradient);
+  width: 200px;
+  height: 50px;
+  margin: 15px auto;
+}
+
+#display > p {
+  line-height: 50px;
+  text-align: center;
+  color: var(--text-color);
+  font-size: 18px;
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 18px 0;
+  width: 100%;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 6px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px var(--secundary-color), 0px 0px 1px var(--secundary-color);
+  background: var(--main-color);
+  border-radius: 1.3px;
+  border: 0.2px solid var(--main-color);
+}
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 1px 1px 1px var(--main-color), 0px 0px 1px var(--main-color);
+  height: 22px;
+  width: 8px;
+  border-radius: 1px;
+  background: var(--text-color);
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -10px;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: var(--secundary-color)
+}
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 6px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px var(--secundary-color), 0px 0px 1px var(--secundary-color);
+  background: var(--main-color);
+  border-radius: 1.3px;
+  border: 0.2px solid var(--main-color);
+}
+input[type=range]::-moz-range-thumb {
+  box-shadow: 1px 1px 1px var(--main-color), 0px 0px 1px var(--main-color);
+  height: 22px;
+  width: 8px;
+  border-radius: 1px;
+  background: var(--text-color);
+  cursor: pointer;
+}
+
+
+@media (max-width: 660px) {
+  #drum-machine {
+    flex-direction: column;
+    max-width: 400px;
   }
 }
