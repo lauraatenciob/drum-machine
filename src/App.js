@@ -1,7 +1,8 @@
 import "./App.css";
 import { buttons } from "./consts";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import PadBank from "./PadBank";
+import Display from "./Display";
 
 function App() {
   const [display, setDisplay] = useState("");
@@ -17,12 +18,12 @@ function App() {
     setDisplay("Volume: " + Math.round(newVolume * 100 * 100) / 100);
   }
 
-  function playAudio(id) {
-    const audio = document.getElementById(id);
+  function playAudio(button) {
+    debugger;
+    const audio = document.getElementById(button.idAudio);
     audio.play();
     audio.parentElement.focus();
-    let currentAudio = buttons.find((element) => id === element.idAudio);
-    setDisplay(currentAudio.audioName);
+    setDisplay(button.audioName);
   }
 
   useEffect(() => {
@@ -32,7 +33,7 @@ function App() {
           event.key === buttons[i].idAudio ||
           event.key === buttons[i].idAudio.toLowerCase()
         ) {
-          playAudio(buttons[i].idAudio);
+          playAudio(buttons[i]);
           return;
         }
       }
@@ -42,40 +43,13 @@ function App() {
   return (
     <div id="container">
       <div id="drum-machine">
-        <div id="button-container">
-          {buttons.map((element) => (
-            <button
-              id={element.idButton}
-              className="drum-pad"
-              onClick={() => playAudio(element.idAudio)}
-            >
-              <audio
-                src={element.link}
-                id={element.idAudio}
-                className="clip"
-              ></audio>
-              {element.idAudio}
-            </button>
-          ))}
-        </div>
-        <div id="display-container">
-          <div id="display">
-            <p>{display}</p>
-          </div>
-          <input
-            max="1"
-            min="0"
-            step="0.01"
-            type="range"
-            value={volume}
-            onChange={handleChange}
-            onMouseUp={() => {
-              setTimeout(() => {
-                setDisplay("");
-              }, 1000);
-            }}
-          ></input>
-        </div>
+        <PadBank onPlay={playAudio} />
+        <Display
+          text={display}
+          volumeValue={volume}
+          onVolumeChange={handleChange}
+          onMoveEnd={() => setDisplay("")}
+        />
       </div>
     </div>
   );
